@@ -9,6 +9,11 @@
 		WHERE STU_NAME = #{keyword} 
 		<!--보낸 이름인 keyword로 -->
 	</select>
+	
+	<select id="stuList" parameterType="hashmap" resultType="com.example.test1.model.Student">
+		SELECT *
+		FROM STUDENT
+	</select>
 </mapper>
 
 

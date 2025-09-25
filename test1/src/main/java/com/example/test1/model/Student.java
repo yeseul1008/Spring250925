@@ -4,6 +4,8 @@ public class Student {
 	private String stuNo;
 	private String stuName;
 	private String stuDept;
+	private String stuGrade;
+	private String stuGender;
 
 	public String getStuNo() {
 		return stuNo;
@@ -22,6 +24,18 @@ public class Student {
 	}
 	public void setStuDept(String stuDept) {
 		this.stuDept = stuDept;
+	}
+	public String getStuGrade() {
+		return stuGrade;
+	}
+	public void setStuGrade(String stuGeade) {
+		this.stuGrade = stuGeade;
+	}
+	public String getStuGender() {
+		return stuGender;
+	}
+	public void setStuGender(String stuGender) {
+		this.stuGender = stuGender;
 	}
 
 	

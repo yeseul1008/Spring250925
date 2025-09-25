@@ -24,11 +24,14 @@ public class UserService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println("service =>" + map);
-		User user = userMapper.userLogin(map); //userMapper 호출해서 맵을 만듬
+		User user = userMapper.userLogin(map); //userMapper 호출해서 db조회결과로 맵을 만듬
 		if(user != null) {
 			System.out.println(user.getName());
 			System.out.println(user.getNickName());
 		}
+		resultMap.put("info", user); // db조회 결과 user
+		resultMap.put("result", "success");
+		
 		return resultMap;
 	}
 }
