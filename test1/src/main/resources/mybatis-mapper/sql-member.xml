@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.MemberMapper">
+	<select id="memberLogin" parameterType="hashmap" resultType="com.example.test1.model.Member">
+		<!--id: 호출할 때 함수 이름-->
+		<!--resultType: 리턴타입. 이 타입을 사용할라면 Member이라는 클래스가 필요함-->
+		SELECT *
+		FROM TBL_USER
+		WHERE USERID = #{id} AND PASSWORD = #{pwd}
+	</select>
+	
+	<select id="memberCheck" parameterType="hashmap" resultType="com.example.test1.model.Member">
+		SELECT *
+		FROM TBL_USER
+		WHERE USERID = #{id}
+	</select>
+</mapper>
+
+
+
+

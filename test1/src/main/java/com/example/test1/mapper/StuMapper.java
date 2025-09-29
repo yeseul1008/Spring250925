@@ -10,6 +10,16 @@ import com.example.test1.model.Student;
 @Mapper
 public interface StuMapper {
 	
-	Student stuInfo(HashMap<String, Object> map); // 리턴되는 값이 하나면(맵1개) 가능
+	//게시글 목록
 	List<Student> stuList(HashMap<String, Object> map); //리턴되는 값이 여러개면 맵을 담는 리스트로 감싸줘야함
+	
+	//게시글 삭제
+	int deleteStu(HashMap<String, Object> map);
+	// xml에서 deleteStu 실행
+	
+	//게시글 하나 조회
+	Student stuInfo(HashMap<String, Object> map);
+	
+	//게시글 수정
+	int editStu(HashMap<String, Object> map);
 }

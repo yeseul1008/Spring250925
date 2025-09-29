@@ -3,16 +3,53 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.test1.mapper.BoardMapper">	
-	<select id="boardList" parameterType="hashmap" resultType="com.example.test1.model.Board">
-		SELECT *
-		FROM TBL_BOARD
+	<select id="boardList" parameterType="hashmap" resultType="com.example.test1.model.Board"> <!--Board.java에 있는 변수들로 리턴-->
+		SELECT 
+			B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') AS CDATE
+		FROM TBL_BOARD B
+		WHERE 1=1
+		<if test="kind != '' and kind != null"> <!--전체 목록일때는 전체 리스트 불러오도록-->
+			AND KIND = #{kind} <!--다른 조건 추가한 경우 대비해서 앞에 AND 붙여둠-->
+		</if>
+		<!--작성일에서 날짜만 나오도록하는법. 이런식으로 특정 컬럼만 수정하면 나머지컬럼은 *로만 불러오면 안되고 별칭을 붙여서 불러와야함-->
+	
+		<if test="sort == 'num'">
+			ORDER BY BOARDNO ASC
+		</if>
+		<if test="sort == 'title'">
+		    ORDER BY TITLE ASC
+		</if>
+		<if test="sort == 'cnt'">
+		    ORDER BY CNT DESC
+		</if>
 	</select>
 	
-	<select id="boardRemove" parameterType="hashmap" resultType="com.example.test1.model.Board">
-		DELETE
-		FROM TBL_BOARD
-		WHERE BOARDNO = #{boardno} 
+	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.Board">
+		SELECT 
+			B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') AS CDATE
+		FROM TBL_BOARD B
+		WHERE BOARDNO = #{boardno}
 	</select>
+	
+	<delete id="deleteBoard" parameterType="hashmap">
+		DELETE FROM TBL_BOARD
+		WHERE BOARDNO = #{boardNo}
+	</delete>
+	
+	<insert id="addBoard" parameterType="hashmap">
+		INSERT INTO TBL_BOARD 
+   	 	VALUES (
+        B_SEQ.NEXTVAL,
+        #{title}, 
+        #{contents}, 
+        #{userId}, 
+        0,
+        0,
+        2, 
+        SYSDATE,
+        SYSDATE
+    )
+	</insert>
 </mapper>
 
 

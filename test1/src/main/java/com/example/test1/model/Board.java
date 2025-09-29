@@ -3,8 +3,31 @@ package com.example.test1.model;
 public class Board {
 	private String boardno;
 	private String title;
+	private String contents;
 	private String userid;
 	private String cnt;
+	private String favorite;
+	private String cdate;
+	
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+	public String getFavorite() {
+		return favorite;
+	}
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
+	public String getCdate() {
+		return cdate;
+	}
+	public void setCdate(String cdate) {
+		this.cdate = cdate;
+	}
+	
 	
 	public String getBoardno() {
 		return boardno;
