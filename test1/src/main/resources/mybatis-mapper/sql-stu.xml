@@ -4,12 +4,9 @@
 
 <mapper namespace="com.example.test1.mapper.StuMapper">
 	<select id="stuInfo" parameterType="hashmap" resultType="com.example.test1.model.Student">
-		SELECT S.STU_NO, S.STU_NAME, STU_DEPT, AVG(ENR_GRADE) AS AVG_GRADE
-		FROM STUDENT s
-		LEFT JOIN ENROL E ON S.STU_NO = E.STU_NO
-		WHERE S.STU_NO = #{stuNo}
-		GROUP BY S.STU_NO, S.STU_NAME, STU_DEPT
-		<!--보낸 이름인 keyword로 -->
+		SELECT *
+		FROM STUDENT
+		WHERE STU_NAME = #{keyword}
 	</select>
 	
 	<select id="stuList" parameterType="hashmap" resultType="com.example.test1.model.Student">
@@ -17,20 +14,25 @@
 		FROM STUDENT
 	</select>
 	
-	<delete id="deleteStu" parameterType="hashmap">
-		DELETE 
-		FROM STUDENT
+	<delete id="deleteStudent" parameterType="hashmap">
+		DELETE FROM STUDENT
 		WHERE STU_NO = #{stuNo}
 	</delete>
 	
-	<update id="editStu" parameterType="hashmap">
-		UPDATE STUDENT
-		SET STU_NAME = #{stuName},
-			STU_DEPT = #{stuDept}
-		WHERE STU_NO = #{stuNo}
-	</update>
+	<select id="selectStudent" parameterType="hashmap" resultType="com.example.test1.model.Student">
+		SELECT 
+		    S.STU_NO, S.STU_NAME, S.STU_DEPT, NVL(AVG(ENR_GRADE), 0) AS ENR_AVG,
+		    (SELECT ROUND(AVG(ENR_GRADE), 1) FROM ENROL) AS TOTAL_AVG,
+		    TOTAL_AVG2
+		FROM STUDENT S
+		LEFT JOIN ENROL E ON S.STU_NO = E.STU_NO
+		INNER JOIN (
+		    SELECT ROUND(AVG(ENR_GRADE), 1) AS TOTAL_AVG2 FROM ENROL
+		) T ON 1=1
+		WHERE S.STU_NO = #{stuNo}
+		GROUP BY S.STU_NO, S.STU_NAME, S.STU_DEPT, TOTAL_AVG2
+	</select>
 </mapper>
-
 
 
 

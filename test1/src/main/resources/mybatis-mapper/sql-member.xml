@@ -4,8 +4,6 @@
 
 <mapper namespace="com.example.test1.mapper.MemberMapper">
 	<select id="memberLogin" parameterType="hashmap" resultType="com.example.test1.model.Member">
-		<!--id: 호출할 때 함수 이름-->
-		<!--resultType: 리턴타입. 이 타입을 사용할라면 Member이라는 클래스가 필요함-->
 		SELECT *
 		FROM TBL_USER
 		WHERE USERID = #{id} AND PASSWORD = #{pwd}
@@ -16,8 +14,13 @@
 		FROM TBL_USER
 		WHERE USERID = #{id}
 	</select>
+	
+	<insert id="memberAdd" parameterType="hashmap">
+		INSERT INTO TBL_USER
+		VALUES(#{id}, #{pwd}, #{name}, NULL, NULL, NULL, #{addr}, #{phone}, NULL, #{gender}, #{status}, SYSDATE, SYSDATE)
+	</insert>
+	
 </mapper>
-
 
 
 

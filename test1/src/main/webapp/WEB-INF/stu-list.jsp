@@ -27,10 +27,10 @@
     <div id="app">
         <!-- html 코드는 id가 app인 태그 안에서 작업 -->
 		<div>
-			<input v-model="keyword" placeholder = "검색어">
+			<input v-model="keyword" placeholder="검색어">
 			<button @click="fnInfo">검색</button>
 		</div>
-		<div>
+        <div>
             <table>
                 <tr>
                     <th>학번</th>
@@ -42,7 +42,9 @@
                 </tr>
                 <tr v-for="item in list">
                     <td>{{item.stuNo}}</td>
-                    <td><a href="javascript:;" @click="fnView(item.stuNo)">{{item.stuName}}</a></td>
+                    <td>
+                        <a href="javascript:;" @click="fnView(item.stuNo)">{{item.stuName}}</a>
+                    </td>
                     <td>{{item.stuDept}}</td>
                     <td>{{item.stuGrade}}</td>
                     <td>{{item.stuGender}}</td>
@@ -50,13 +52,13 @@
                 </tr>
             </table>
         </div>
+		
     </div>
 </body>
 </html>
 
 <script>
     const app = Vue.createApp({
-		
         data() {
             return {
                 // 변수 - (key : value)
@@ -67,7 +69,6 @@
         methods: {
             // 함수(메소드) - (key : function())
             fnList: function () {
-				
                 let self = this;
                 let param = {};
                 $.ajax({
@@ -82,7 +83,6 @@
                 });
             },
             fnInfo: function () {
-				
                 let self = this;
                 let param = {
 					keyword : self.keyword
@@ -98,24 +98,23 @@
                 });
             },
             fnRemove: function (stuNo) {
-                if(!confirm("삭제하시겠습니까?")){
-                    return;
-                }
                 let self = this;
-                let param = {stuNo : stuNo};
+                let param = {
+                    stuNo : stuNo
+                };
                 $.ajax({
                     url: "stu-delete.dox",
                     dataType: "json",
                     type: "POST",
                     data: param,
                     success: function (data) {
-                        alert("삭제되었습니다");
+						alert("삭제되었습니다.");
                         self.fnList();
                     }
                 });
             },
             fnView : function(stuNo){
-                pageChange("stu-view.do", {stuNo : stuNo});
+                pageChange("/stu-view.do", {stuNo : stuNo});
             }
         }, // methods
         mounted() {

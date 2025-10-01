@@ -6,19 +6,15 @@ public class Student {
 	private String stuDept;
 	private String stuGrade;
 	private String stuGender;
-	private String avgGrade;
-
-	public String getAvgGrade() {
-		return avgGrade;
-	}
-	public void setAvgGrade(String avgGrade) {
-		this.avgGrade = avgGrade;
-	}
+	
+	private double enrAvg;
+	private String totalAvg;
+	
 	public String getStuNo() {
 		return stuNo;
 	}
 	public void setStuNo(String stuNo) {
-		this.stuNo = stuNo; // 언더바(_)를 카멜표기법으로 쓸 수 있음
+		this.stuNo = stuNo;
 	}
 	public String getStuName() {
 		return stuName;
@@ -35,8 +31,8 @@ public class Student {
 	public String getStuGrade() {
 		return stuGrade;
 	}
-	public void setStuGrade(String stuGeade) {
-		this.stuGrade = stuGeade;
+	public void setStuGrade(String stuGrade) {
+		this.stuGrade = stuGrade;
 	}
 	public String getStuGender() {
 		return stuGender;
@@ -44,6 +40,16 @@ public class Student {
 	public void setStuGender(String stuGender) {
 		this.stuGender = stuGender;
 	}
-
-	
+	public double getEnrAvg() {
+		return enrAvg;
+	}
+	public void setEnrAvg(double enrAvg) {
+		this.enrAvg = enrAvg;
+	}
+	public String getTotalAvg() {
+		return totalAvg;
+	}
+	public void setTotalAvg(String totalAvg) {
+		this.totalAvg = totalAvg;
+	}
 }

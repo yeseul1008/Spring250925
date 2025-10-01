@@ -14,38 +14,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.test1.dao.BoardService;
 import com.google.gson.Gson;
-// 주소 만들땐 @컨트롤러 이 표시가 꼭 필요함
+
 @Controller
 public class BoardController {
-	
+
 	@Autowired
-	BoardService boardService; // Stuservice 클래스를 담은 stuService객체 생성 (이렇게하면 계속 재사용 할 수 있음) 
+	BoardService boardService;
+
 	
 	@RequestMapping("/board-list.do") 
-    public String login(Model model) throws Exception{
-    
-		return "/board-list";
+    public String login(Model model) throws Exception{ 
+		
+        return "/board-list";
     }
 	
 	@RequestMapping("/board-add.do") 
-    public String Add(Model model) throws Exception{
-    
-		return "/board-add";
+    public String add(Model model) throws Exception{ 
+		
+        return "/board-add";
     }
 	
-	@RequestMapping("/board-view.do") //파라미터 받기 (이 방식으로 하면 파라미터를 한번에 여러개를 보내줄 수 있음)
+	@RequestMapping("/board-view.do") 
     public String view(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
-		System.out.println(map);
-		request.setAttribute("boardno", map.get("boardno")); // 페이지를 띄우면서 맵 보내주기
-		return "/board-view";
+		request.setAttribute("boardNo", map.get("boardNo"));
+        return "/board-view";
     }
 	
-//	요청을 하기 위한 주소
 	@RequestMapping(value = "/board-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = boardService.GetBoardList(map);
+		resultMap = boardService.getBoardList(map);
 		
 		return new Gson().toJson(resultMap);
 	}
@@ -61,7 +60,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board-add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String boardAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String add(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = boardService.addBoard(map);
 		
@@ -72,8 +71,21 @@ public class BoardController {
 	@ResponseBody
 	public String boardView(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = boardService.GetBoard(map);
+		resultMap = boardService.getBoard(map);
 		
 		return new Gson().toJson(resultMap);
 	}
+	
+	@RequestMapping(value = "/comment-add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String commentAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.addComment(map);
+		
+		return new Gson().toJson(resultMap);
+	}
+	
+
 }
+
+
